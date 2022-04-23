@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}Get Locate - {{username}}{% endblock %}
+
+{% block body %}
+
+    <div class="row" style="flex: 1;">
+        <div class="col-sm-2 bg-light">
+            <div class="container-fluid" style="display: flex; justify-content: center; margin-top: 10px;"><i class="bi"><h3>{{username}}</h3></i></div>
+            <br>
+            <div class="container-fluid" style="display: flex; justify-content: center;">
+                <form method="post">
+                    <input type="text" class="form-control" name="caption" placeholder="Name of record" id="floatingInput" minlength="3" maxlength="10" pattern="^[a-zA-Z]+$">
+                </form>
+            </div>
+            <div class="container-fluid" style="display: flex; justify-content: center; margin-top: 15px;"><input readonly type="text" class="form-control" id="link" placeholder="Your link will be here" value="{{link}}" onclick="copytext()"></div>
+        </div>
+        <div class="col-sm-10" style="max-height: 100%; overflow-y: scroll;">
+                <div class="container-fluid d-flex justify-content-center bg-light">
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Ip</th>
+                            <th scope="col">Country</th>
+                            <th scope="col">Region</th>
+                            <th scope="col">City</th>
+                            <th scope="col">Latitude</th>
+                            <th scope="col">Longitude</th>
+                            <th scope="col" style="font-size: large;"><div class="container"><i class="bi bi-gear-fill"></i></div></th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                        {% for el in data %}
+                          <tr>
+                            <th scope="row">{{el.caption}}</th>
+                            <td>{{el.ip}}</td>
+                            <td>{{el.country}}</td>
+                            <td>{{el.region}}</td>
+                            <td>{{el.city}}</td>
+                            <td>{{el.lat}}</td>
+                            <td>{{el.lon}}</td>
+                            <td style="font-size: large;"><div class="container"><a href="/account/{{el.id}}/delete" class="link-danger"><i class="bi bi-trash"></i></a></div></td>
+                          </tr>
+                        {% endfor %}
+                        </tbody>
+                      </table>
+                </div>
+        </div>
+    </div>
+<script>
+    function copytext() {
+        var copyText = document.getElementById("link");
+        copyText.select();
+        copyText.setSelectionRange(0, 99999);
+        document.execCommand("copy");
+        alert("Link copied to clipboard");
+    }
+</script>
+{% endblock %}

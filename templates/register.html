@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block body %}
+    <section style="width: 100%;">
+        <div class="container" style="width: 50%; display: flex; justify-content: center;">
+            <div class="col-md-6 col-md-offset-3 col-xs-12">
+                <div class="login-box">
+                    <div class="login-title" style="display: flex; justify-content: center;">
+                        <h4>Register</h4>
+                    </div>
+                    <br>
+                    <form action="#" method="post" id="signup">
+
+                        <div class="form-floating">
+                            <input required autocomplete="off" type="text" class="form-control" maxlength="20" name="login" onchange="check1(this.value)" placeholder="Username" id="login_input">
+                            <label for="floatingInput">Username</label>
+                            <small class="form-text text-muted"><i class="bi bi-info-circle" id="unique-usrn"></i> Unique username</small><br>
+                            <small class="form-text text-muted"><i class="bi bi-info-circle" id="lenght-usrn"></i> Min length 4, max lenght 20</small><br>
+                            <small class="form-text text-muted"><i class="bi bi-info-circle" id="symb-usrn"></i> Latin letters and numbers only</small>
+                        </div>
+                        <br>
+                        <div class="form-floating">
+                            <input required autocomplete="off" type="email" class="form-control" name="email" onchange="check2(this.value)" placeholder="Email"  id="email_input">
+                            <label for="floatingInput">Email</label>
+                            <small class="form-text text-muted" ><i class="bi bi-info-circle" id="unique-email"></i> Unique email</small><br>
+                            <small class="form-text text-muted"><i class="bi bi-info-circle" id="symb-email"></i> Required @ (you will get info via email)</small>
+                          </div>
+
+                          <br>
+                          <div class="form-floating">
+                            <input required autocomplete="off" type="password" class="form-control" name="password"  onchange="check3(this.value)" placeholder="Password" id="password_input">
+                            <label for="floatingPassword">Password</label>
+                            <small class="form-text text-muted"><i class="bi bi-info-circle" id="lenght-pass"></i> Min length 8, max lenght 20</small><br>
+                            <small class="form-text text-muted"><i class="bi bi-info-circle" id="symb-pass"></i> Latin letters, numbers and "-"</small>
+                          </div>
+
+                          <br>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" type="button" style="width: 40%;" onclick="submition()">Sign Up</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+<script>
+    function check1(login){
+        let array = {{logins|safe}};
+        let username_input = document.getElementById('login_input');
+        let unique_control = document.getElementById('unique-usrn');
+        let lenght_control = document.getElementById('lenght-usrn');
+        let symb_control = document.getElementById('symb-usrn');
+
+        let arr_symb = [' ', '!', '@', '#', '$', '%', '&', '?', '-', '+', '=', '~', '(', ')', '[', ']', '{', '}', '<', '>', '"', "'"];
+        let login_lenght = login.length;
+
+        let check_unique = false;
+        let check_lenght = false;
+        let check_symb = false;
+
+        unique_control.classList.remove('bi-info-circle');
+        lenght_control.classList.remove('bi-info-circle');
+        symb_control.classList.remove('bi-info-circle');
+
+        for (let i of array){
+            if (login == i){
+                unique_control.classList.remove('bi-check-circle');
+                unique_control.classList.add('bi-x-circle');
+                check_unique = false;
+                break;
+            } else {
+                unique_control.classList.remove('bi-x-circle');
+                unique_control.classList.add('bi-check-circle');
+                check_unique = true;
+            }
+        }
+        
+        if (login_lenght>=4 && login_lenght<=20){
+            lenght_control.classList.remove('bi-x-circle');
+            lenght_control.classList.add('bi-check-circle');
+            check_lenght = true;
+        } else {
+            lenght_control.classList.remove('bi-check-circle');
+            lenght_control.classList.add('bi-x-circle');
+            check_lenght = false;
+        }
+
+        iterate_i: for (let i of login){
+            for (let j of arr_symb){
+                if (i==j){
+                    symb_control.classList.remove('bi-check-circle');
+                    symb_control.classList.add('bi-x-circle');
+                    check_symb = false;                                        
+                    break iterate_i;
+                } else {
+                    symb_control.classList.remove('bi-x-circle');
+                    symb_control.classList.add('bi-check-circle');
+                    check_symb = true;
+                }
+            }
+        }
+
+        if (check_unique && check_lenght && check_symb){
+            username_input.classList.remove('is-invalid');
+            username_input.classList.add('is-valid');
+            return true;
+        } else {
+            username_input.classList.remove('is-valid');
+            username_input.classList.add('is-invalid');
+            return false;
+        }
+    }
+
+    function check2(email){
+        let array = {{emails|safe}};
+        let email_input = document.getElementById('email_input');
+        let unique_email = document.getElementById('unique-email');
+        let symb_email = document.getElementById('symb-email');
+        unique_email.classList.remove('bi-info-circle');
+        symb_email.classList.remove('bi-info-circle');
+        let check_unique_email = false;
+        let check_dog = false;
+
+        for (let i of array){
+            if (email == i){
+                unique_email.classList.remove('bi-check-circle');
+                unique_email.classList.add('bi-x-circle');
+                check_unique_email = false;
+                break;
+            } else {
+                unique_email.classList.remove('bi-x-circle');
+                unique_email.classList.add('bi-check-circle');
+                check_unique_email = true;
+            }
+        }
+
+        for (let i of email){
+            if(i=='@'){
+                symb_email.classList.remove('bi-x-circle');
+                symb_email.classList.add('bi-check-circle');
+                check_dog = true;
+                break;
+            } else {
+                symb_email.classList.remove('bi-check-circle');
+                symb_email.classList.add('bi-x-circle');
+                check_dog = false
+            }
+        }
+        if (check_unique_email && check_dog){
+            email_input.classList.remove('is-invalid');
+            email_input.classList.add('is-valid');
+            return true;
+        } else {
+            email_input.classList.remove('is-valid');
+            email_input.classList.add('is-invalid');
+            return false;
+        }
+    }
+
+    function check3(password){
+        let password_input = document.getElementById('password_input');
+        let lenght_control = document.getElementById('lenght-pass');
+        let symb_control = document.getElementById('symb-pass');
+
+        let arr_symb = [' ', '!', '@', '#', '$', '%', '&', '?', '+', '=', '~', '(', ')', '[', ']', '{', '}', '<', '>', '"', "'"];
+        let password_lenght = password.length;
+
+        let check_lenght = false;
+        let check_symb = false;
+
+        lenght_control.classList.remove('bi-info-circle');
+        symb_control.classList.remove('bi-info-circle');
+        
+        if (password_lenght>=8 && password_lenght<=20){
+            lenght_control.classList.remove('bi-x-circle');
+            lenght_control.classList.add('bi-check-circle');
+            check_lenght = true;
+        } else {
+            lenght_control.classList.remove('bi-check-circle');
+            lenght_control.classList.add('bi-x-circle');
+            check_lenght = false;
+        }
+
+        iterate_i: for (let i of password){
+            for (let j of arr_symb){
+                if (i==j){
+                    symb_control.classList.remove('bi-check-circle');
+                    symb_control.classList.add('bi-x-circle');
+                    check_symb = false;                                        
+                    break iterate_i;
+                } else {
+                    symb_control.classList.remove('bi-x-circle');
+                    symb_control.classList.add('bi-check-circle');
+                    check_symb = true;
+                }
+            }
+        }
+
+        if (check_lenght && check_symb){
+            password_input.classList.remove('is-invalid');
+            password_input.classList.add('is-valid');
+            return true;
+        } else {
+            password_input.classList.remove('is-valid');
+            password_input.classList.add('is-invalid');
+            return false;
+        }
+    }
+
+    function submition(){
+        let form = document.getElementById('signup')
+        let login = document.getElementById('login_input').value;
+        let email = document.getElementById('email_input').value;
+        let password = document.getElementById('password_input').value;
+
+        if(check1(login) && check2(email) && check3(password)){
+            form.submit()            
+        } else {
+            alert('Fill all sections correct to submit')
+        }
+    }
+  
+</script>
+
+{% endblock %}

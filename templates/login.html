@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <section style="width: 100%;">
+        <div class="container" style="width: 50%; display: flex; justify-content: center; align-items: center;">
+            <div class="col-md-6 col-md-offset-3 col-xs-12">
+
+                <div class="login-box">
+                    <div class="login-title" style="display: flex; justify-content: center;">
+                        <h4>Sign In</h4>
+                    </div>
+                    <br>
+                    <form action="#" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" name="login" placeholder="login" id="floatingInput">
+                            <label for="floatingInput">Login</label>
+                          </div>
+                          <div class="form-floating">
+                            <input type="password" class="form-control" name="password" placeholder="password" id="floatingPassword">
+                            <label for="floatingPassword">Password</label>
+                          </div>
+                          <br>
+                        <div class="form-group text-center">
+                            <button class="btn btn-primary" style="width: 40%;" type="submit">Sign In</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

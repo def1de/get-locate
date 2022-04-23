@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+
+{% block title %}Get Locate - Main{% endblock %}
+
+{% block body %}
+  <div class="container-fluid">
+    <section style="display: flex; justify-content: center;">
+        <div class="container">
+            <h2 id="getting-started"><i class="bi bi-cursor-fill"></i> Getting Started</h2>
+            <div class="row">
+              <div class="col-sm">
+                    <div class="container-fluid bg-light" style="border-radius: 10px;">
+                        <p>
+                            <br>
+                            To get info about targeted IP paste it here:
+                            <form method="post" id="form-ip" class="d-flex justify-content-between"><input required autocomplete="off" type="text" class="form-control" name="ip" pattern="\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}"  placeholder="Type IP here..." value="{{ip}}"><button class="btn btn-primary" type="submit"><i class="bi bi-search"></i></button></form>
+                            <br>
+                            Now you can see info about this IP on the right side.
+                            <br>
+                            But you can register <a href="/sign-up">here</a> to get access to pesonal database and aviability to genrate some special link to know geolocation of chosen person.
+                            <br>
+                            Test it out!
+                        </p>
+                        <br>
+                    </div>
+                    <br>
+              </div>
+              <div class="col-sm">
+                <div class="container-fluid bg-light" style="border-radius: 10px;">
+                    <br>
+                    <p>IP: {{ip}}</p>
+                    <p>Provider: {{data.organisation}}</p>
+                    <p>Country: {{data.countryName}}</p>
+                    <p>Region: {{data.region}}</p>
+                    <p>City: {{data.city}}</p>
+                    <p>Lat: {{data.lat}}</p>
+                    <p>Long: {{data.long}}</p>
+                    <br>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+    <br>
+
+    <section style="display: flex; justify-content: center;">
+        <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <h2 id="about"><i class="bi bi-person-fill"></i> About Us</h2>
+                    <div class="container-fluid bg-light" style="border-radius: 10px;">
+                        <br><p>You are looking for a person, but you don't know their address. Or maybe you just want to make sure they're still alive. No problem! With Get Locate, you can easily find out the location of any person in the world. Just enter their name or ID number and our search engine will take care of the rest. You'll get results in seconds, so go ahead and find your lost loved one today!</p><br>
+                    </div>
+                    <br>
+              </div>
+              <div class="col-sm">
+                <h2 id="faq"><i class="bi bi-headset"></i> FAQ</h2>
+                <div class="container-fluid bg-light" style="border-radius: 10px;">
+                    <br>
+                    <div class="accordion" id="accordionExample">
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                              Is it Free?
+                            </button>
+                          </h2>
+                          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              Yes! Now it's absolutely free. We get paid by placing an advertisement, so if you want to support us you can disable adblock on our site.
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                Is it safe to store IP data on this web-site?
+                            </button>
+                          </h2>
+                          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                                We store all data in one secured database and return IP data only to the account from which the request was created.                        
+                            </div>
+                          </div>
+                        </div>
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                Who else have access to my data?
+                            </button>
+                          </h2>
+                          <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
+                            <div class="accordion-body">
+                              Only you. Administrator can see and execute with global data, but he don't have an access to personal data.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <br>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+  </div>
+    
+{% endblock %}
